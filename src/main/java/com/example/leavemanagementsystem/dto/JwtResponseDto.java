@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtResponseDto {
+public class JwtResponseDto implements Serializable {
     private String token;
     private String type = "Bearer";
     private Long id;

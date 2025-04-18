@@ -78,7 +78,9 @@ public class DepartmentService {
         dto.setId(department.getId());
         dto.setName(department.getName());
         dto.setDescription(department.getDescription());
-        dto.setEmployeeCount(department.getEmployees().size());
+//        dto.setEmployeeCount(department.getEmployees().size());
+        Integer count = employeeRepository.countByDepartmentId(department.getId());
+        dto.setEmployeeCount(count);
         return dto;
     }
 }

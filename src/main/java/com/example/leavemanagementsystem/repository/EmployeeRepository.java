@@ -4,23 +4,19 @@ import com.example.leavemanagementsystem.model.Department;
 import com.example.leavemanagementsystem.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+    @Query("SELECT e FROM Employee e LEFT JOIN FETCH e.department")
+    List<Employee> findAllWithDepartment();
+    Optional<Employee> findByUserId(Long userId);
     List<Employee> findByDepartment(Department department);
-
     List<Employee> findByManager(Employee manager);
 
-    Optional<Employee> findByEmail(String email);
-
-    Optional<Employee> findByUserId(Long userId);
-
-    Long countByDepartment(Department department);
-
-    @Query("SELECT e FROM Employee e JOIN FETCH e.department")
-    List<Employee> findAllWithDepartment();
+    // Add this method to count employees by department ID
+    @Query("SELECT COUNT(e) FROM Employee e WHERE e.department.id = :departmentId")
+    Integer countByDepartmentId(@Param("departmentId") Long departmentId);
 }

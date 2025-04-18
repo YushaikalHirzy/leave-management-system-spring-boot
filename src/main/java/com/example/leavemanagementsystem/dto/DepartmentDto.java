@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentDto {
+public class DepartmentDto implements Serializable {
     private Long id;
 
     @NotBlank
